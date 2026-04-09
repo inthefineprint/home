@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>the fine प्रिंट</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Noto+Serif+Devanagari:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fg:          #1a1008;
+      --cream:       #f5f0e8;
+      --brown:       #3b2212;
+      --terracotta:  #b84c2b;
+      --green:       #2d4a2a;
+      --green-light: #e8ede3;
+      --ochre:       #c49a2a;
+      --ochre-light: #f5edcc;
+      --muted:       #7a6450;
+      --border:      rgba(59,34,18,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--green);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .logo .hindi {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-weight: 900;
+      color: var(--ochre);
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(245,240,232,0.72);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-search-wrap svg {
+      position: absolute;
+      left: 8px;
+      width: 13px;
+      height: 13px;
+      stroke: rgba(245,240,232,0.4);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+    .nav-search {
+      background: rgba(255,255,255,0.09);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      color: var(--cream);
+      font-size: 12px;
+      padding: 6px 10px 6px 28px;
+      width: 160px;
+      outline: none;
+      transition: background 0.2s, width 0.3s;
+    }
+    .nav-search::placeholder { color: rgba(245,240,232,0.35); }
+    .nav-search:focus {
+      background: rgba(255,255,255,0.14);
+      width: 200px;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--terracotta);
+      padding: 5px 0;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* ── WRAPPER ── */
+    .site {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── FEATURED ── */
+    .featured {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      margin: 2.5rem 0 0;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .featured-image {
+      background: var(--brown);
+      min-height: 420px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+    .feat-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 45%, #2d4a2a 100%);
+      opacity: 0.92;
+    }
+    /* decorative pattern overlay */
+    .feat-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 28px,
+          rgba(196,154,42,0.06) 28px,
+          rgba(196,154,42,0.06) 29px
+        );
+    }
+    .feat-tag {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+    .feat-img-text {
+      position: relative;
+      z-index: 1;
+      color: var(--cream);
+    }
+    .feat-img-text p {
+      font-size: 11px;
+      opacity: 0.55;
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .feat-img-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    .featured-meta {
+      padding: 2.5rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 3px solid var(--ochre);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .featured-meta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+    .featured-meta .excerpt {
+      font-family: 'Source Serif 4', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 1rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+    .author-info { font-size: 13px; flex: 1; }
+    .author-info strong { color: var(--brown); display: block; font-weight: 500; }
+    .author-info span { color: var(--muted); font-size: 12px; }
+
+    .read-btn {
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      padding: 8px 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .read-btn:hover { background: #1e3a1b; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.75rem 0 1.5rem;
+    }
+    .section-head h3 {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .section-head hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ARTICLE GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(59,34,18,0.1);
+    }
+
+    .card-thumb {
+      height: 148px;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      position: relative;
+    }
+    .ct-a { background: #2d4a2a; }
+    .ct-b { background: #5a2a12; }
+    .ct-c { background: #4a3a1a; }
+    .ct-d { background: #1e3a2e; }
+    .ct-e { background: #6b2e1a; }
+    .ct-f { background: #3a4a22; }
+
+    /* subtle pattern on card thumbs */
+    .card-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(255,255,255,0.03) 18px,
+        rgba(255,255,255,0.03) 19px
+      );
+    }
+
+    .card-tag {
+      position: relative;
+      z-index: 1;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 2px;
+      background: rgba(245,240,232,0.12);
+      color: var(--cream);
+      border: 0.5px solid rgba(245,240,232,0.25);
+    }
+
+    .card-body {
+      padding: 1rem 1.1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 0.5rem;
+    }
+    .card-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 0.75rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dot { color: var(--ochre); margin: 0 4px; }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── NUMBERED LIST ── */
+    .opinion-stack { display: flex; flex-direction: column; }
+    .opinion-item {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .opinion-item:hover { background: var(--green-light); }
+    .opinion-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--ochre);
+      opacity: 0.35;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 34px;
+    }
+    .opinion-item h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .opinion-item span { font-size: 12px; color: var(--muted); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--green);
+      border-radius: 4px;
+      padding: 1.75rem;
+      color: var(--cream);
+      border-top: 3px solid var(--ochre);
+    }
+    .newsletter .section-label { color: var(--ochre); margin-bottom: 0.5rem; }
+    .newsletter h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .newsletter p { font-size: 13px; color: rgba(245,240,232,0.68); line-height: 1.65; margin-bottom: 1.1rem; }
+    .newsletter input {
+      width: 100%;
+      background: rgba(0,0,0,0.2);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 13px;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter input:focus { border-color: rgba(196,154,42,0.6); }
+    .newsletter input::placeholder { color: rgba(245,240,232,0.35); }
+    .newsletter button {
+      width: 100%;
+      background: var(--terracotta);
+      border: none;
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter button:hover { background: #9e3f22; }
+    .newsletter .success {
+      display: none;
+      font-size: 13px;
+      color: var(--ochre);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* ── TAGS BOX ── */
+    .tags-box {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      margin-top: 1.1rem;
+    }
+    .tags-box .section-label { color: var(--muted); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      padding: 4px 11px;
+      border-radius: 2px;
+      border: 0.5px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      background: var(--cream);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tag:hover { background: var(--ochre-light); color: var(--brown); border-color: var(--ochre); }
+    .tag.active { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .logo { color: var(--cream); font-size: 18px; }
+    footer nav-foot { display: flex; gap: 1.5rem; }
+    footer p { font-size: 12px; color: rgba(245,240,232,0.35); }
+    footer a { color: rgba(245,240,232,0.5); text-decoration: none; font-size: 12px; }
+    footer a:hover { color: var(--cream); }
+
+    /* ── ARTICLE PAGE ── */
+    .article-page { display: none; }
+    .article-page.active { display: block; }
+    .blog-page { display: block; }
+    .blog-page.hidden { display: none; }
+
+    .article-hero {
+      background: var(--brown);
+      padding: 5rem 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 50%, #2d4a2a 100%);
+      opacity: 0.95;
+    }
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(196,154,42,0.05) 30px,
+        rgba(196,154,42,0.05) 31px
+      );
+    }
+    .article-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .article-hero .feat-tag { position: static; display: inline-block; margin-bottom: 1rem; }
+    .article-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+    .article-hero .lede {
+      font-family: 'Source Serif 4', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .article-meta .avatar { background: rgba(255,255,255,0.15); border: 1.5px solid var(--ochre); }
+    .article-meta .author-info strong { color: var(--cream); }
+    .article-meta .author-info span { color: rgba(245,240,232,0.55); }
+
+    .article-body {
+      max-width: 720px;
+      margin: 3.5rem auto;
+      padding: 0 2rem;
+    }
+    .article-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--fg);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 2.5rem 0 1rem;
+      line-height: 1.25;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--ochre);
+      margin: 2rem 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--ochre-light);
+    }
+    .article-body blockquote p {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    .author-bio {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      padding: 1.5rem 2rem;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .author-bio .avatar { width: 48px; height: 48px; font-size: 14px; background: var(--green); flex-shrink: 0; }
+    .author-bio h5 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+    .author-bio p { font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; font-family: 'Source Serif 4', serif; }
+
+
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 2.5rem;
+      transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--brown); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .featured { grid-template-columns: 1fr; }
+      .featured-image { min-height: 280px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      nav { padding: 0 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .feat-img-text h1 { font-size: 24px; }
+      .featured-meta h2 { font-size: 20px; }
+      .article-hero h1 { font-size: 32px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SHARED NAV
+══════════════════════════════════ -->
+<nav>
+  <a href="#" class="logo" onclick="showBlog()">the fine <span class="hindi">प्रिंट</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Essays</a></li>
+    <li><a href="#">Policy</a></li>
+    <li><a href="#">Opinion</a></li>
+    <li><a href="#about-section">About</a></li>
+    <li>
+      <div class="nav-search-wrap" style="position:relative;">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input class="nav-search" placeholder="Search..." type="search" id="siteSearch" autocomplete="off" />
+        <div id="searchResults" style="display:none;position:absolute;top:38px;right:0;width:300px;background:#fff;border:0.5px solid rgba(59,34,18,0.2);border-radius:4px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;overflow:hidden;"></div>
+      </div>
+    </li>
+  </ul>
+</nav>
+<div class="ticker">Law · Policy · Power · India</div>
+
+<!-- ══════════════════════════════════
+     BLOG / HOME PAGE
+══════════════════════════════════ -->
+<div class="blog-page" id="blogPage">
+  <div class="site">
+
+    <!-- FEATURED -->
+    <div class="featured">
+      <div class="featured-image">
+        <div class="feat-bg"></div>
+        <div class="feat-pattern"></div>
+        <span class="feat-tag">First essay</span>
+        <div class="feat-img-text">
+          <p>Law &amp; Literature</p>
+          <h1>Before the Law:<br>Parallel of Socio-Religious Societies</h1>
+        </div>
+      </div>
+      <div class="featured-meta">
+        <div style="flex:1;overflow:hidden;">
+          <p class="section-label">Featured</p>
+          <h2>Before the Law: Parallel of Socio-Religious Societies</h2>
+          <div style="position:relative;max-height:130px;overflow:hidden;cursor:pointer;" onclick="showArticle()">
+            <p class="excerpt">Kafka's <em>Before the Law</em> is an engaging text that leaves a lot of room for interpretation. Though vague, it conveys vivid ideas of power structures that can be generally applicable in life, and as is Kafka's style, especially to bureaucracy. This piece takes place in the larger context of the book <em>The Trial</em>, wherein the protagonist K is unaware of the crime he is arrested for. It is a very relevant piece in the contemporary context, as it eulogises the feeling and experience many face in navigating the justice system as well as other societal systems.</p>
+            <p class="excerpt">I interpret this extract as a parallel to the different types of socio-religious groups that we are a part of, and wish we could escape. In my interpretation, the Law is an idealistic state where one is uninfluenced by any form of bias.</p>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom, transparent, #ffffff);"></div>
+          </div>
+        </div>
+        <div class="author-row">
+          <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+          <div class="author-info">
+            <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></strong>
+            <span>5 min read</span>
+          </div>
+          <a href="#" class="read-btn" onclick="showArticle(); return false;">Read →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="section-head">
+      <h3>Latest essays</h3>
+      <hr />
+    </div>
+
+    <div class="grid">
+      <div class="card" data-tags="policy" onclick="showArticle()">
+        <div class="card-thumb ct-a"><span class="card-tag">Policy</span></div>
+        <div class="card-body">
+          <h4>What the Digital Personal Data Protection Act Gets Wrong</h4>
+          <p>The DPDP Act promises rights but hollows them out through its exceptions and its deference to state interests.</p>
+          <div class="card-footer">
+            <span>Rohit Verma<span class="dot">·</span>8 min</span>
+            <span>Mar 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="opinion" onclick="showArticle()">
+        <div class="card-thumb ct-b"><span class="card-tag">Opinion</span></div>
+        <div class="card-body">
+          <h4>Sedition, Rephrased: The New BNS and Its Silences</h4>
+          <p>Renaming sedition does not remove its sting. The Bharatiya Nyaya Sanhita carries its legacy forward in new clothes.</p>
+          <div class="card-footer">
+            <span>Tara Mehta<span class="dot">·</span>6 min</span>
+            <span>Feb 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="constitutional" onclick="showArticle()">
+        <div class="card-thumb ct-c"><span class="card-tag">Constitutional Law</span></div>
+        <div class="card-body">
+          <h4>Reservations in the Private Sector: A Constitutional Possibility?</h4>
+          <p>The debate resurfaces periodically but rarely engages seriously with what Article 15(5) actually permits and forecloses.</p>
+          <div class="card-footer">
+            <span>Guest Contributor<span class="dot">·</span>10 min</span>
+            <span>Jan 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+      <div>
+        <div class="section-head" style="margin-top:0;">
+          <h3>More to read</h3>
+          <hr />
+        </div>
+        <div class="opinion-stack">
+          <div class="opinion-item" data-tags="labour" onclick="showArticle()">
+            <div class="opinion-num">01</div>
+            <div>
+              <h5>Environmental Clearances and the Infrastructure Imperative</h5>
+              <span>Labour Law · Sunita Rao · 9 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="personal law" onclick="showArticle()">
+            <div class="opinion-num">02</div>
+            <div>
+              <h5>Uniformity vs Diversity: The Uniform Civil Code Debate Unpacked</h5>
+              <span>Personal Law · Kabir Saxena · 14 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="criminal" onclick="showArticle()">
+            <div class="opinion-num">03</div>
+            <div>
+              <h5>Who Governs the Governors? Accountability in Regulatory Bodies</h5>
+              <span>Administrative Law · Priya Nair · 7 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="criminal" onclick="showArticle()">
+            <div class="opinion-num">04</div>
+            <div>
+              <h5>Custodial Deaths and the Failure of Institutional Oversight</h5>
+              <span>Criminal Law · Guest Contributor · 11 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="newsletter">
+          <p class="section-label">Newsletter</p>
+          <h4>The Weekly Writ</h4>
+          <p>One essay, one case note, one thing worth reading. Every Friday morning.</p>
+          <input type="email" placeholder="Your email address" id="emailInput" />
+          <button onclick="handleSubscribe()">Subscribe</button>
+          <p class="success" id="subSuccess">You're in. See you Friday.</p>
+        </div>
+        <div class="tags-box">
+          <p class="section-label">Browse by topic</p>
+          <div class="tag-cloud">
+            <span class="tag active">All</span>
+            <span class="tag">Constitutional</span>
+            <span class="tag">Criminal</span>
+            <span class="tag">Policy</span>
+            <span class="tag">Labour</span>
+            <span class="tag">Data &amp; Tech</span>
+            <span class="tag">Personal Law</span>
+            <span class="tag">Environment</span>
+            <span class="tag">Opinion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about-section" style="margin-bottom:3rem;background:#fff;border:0.5px solid var(--border);border-radius:4px;overflow:hidden;">
+      <div style="background:var(--green);padding:2rem 2.5rem;border-bottom:3px solid var(--ochre);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--ochre);flex-shrink:0;" />
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:6px;">The writer</p>
+          <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:4px;">Krish Mehta</h2>
+          <p style="font-size:13px;color:rgba(245,240,232,0.65);">B.A. LL.B. · Jindal Global Law School · Editorial Head, Jindal Policy Research Lab</p>
+        </div>
+      </div>
+      <div style="padding:2.5rem;display:grid;grid-template-columns:1.6fr 1fr;gap:3rem;">
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:1rem;">About</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:1.25rem;">Krish Mehta is a law student at Jindal Global Law School, O.P. Jindal Global University, where he is pursuing a B.A. LL.B. He writes on Indian law, policy, and governance, with a particular interest in the places where legal text and lived reality diverge.</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:1.25rem;">He has interned with Senior Advocate Pradeep Rai, gaining exposure to proceedings at the Delhi High Court and the Supreme Court of India, and at the Advocatespedia Foundation, where he drafted trust deeds, powers of attorney, sale agreements, and arbitration agreements.</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);">Beyond practice, Krish is deeply involved in research and editorial work at university. He serves as Editorial Head of the Jindal Policy Research Lab and as Deputy Editor at the Centre for Afghanistan Studies. He has also contributed to Policy Corner.</p>
+        </div>
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:1rem;">Roles &amp; affiliations</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border-left:2px solid var(--ochre);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Editorial Head</p>
+              <p style="font-size:12px;color:var(--muted);">Jindal Policy Research Lab · 2026–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--green);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Deputy Editor</p>
+              <p style="font-size:12px;color:var(--muted);">Centre for Afghanistan Studies · 2025–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--green);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Editorial Committee</p>
+              <p style="font-size:12px;color:var(--muted);">Policy Corner · 2025–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--border);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Internship</p>
+              <p style="font-size:12px;color:var(--muted);">Advocate Pradeep Rai · Supreme Court &amp; Delhi HC · Dec 2025</p>
+            </div>
+            <div style="border-left:2px solid var(--border);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Internship</p>
+              <p style="font-size:12px;color:var(--muted);">Advocatespedia Foundation · Jul 2025</p>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:0.5px solid var(--border);">
+            <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:0.75rem;">Get in touch</p>
+            <a href="/cdn-cgi/l/email-protection#0269706b716a2c696f2c6f676a766342656f636b6e2c616d6f" style="font-size:13px;color:var(--green);text-decoration:none;display:block;margin-bottom:4px;"><span class="__cf_email__" data-cfemail="a7ccd5ced4cf89ccca89cac2cfd3c6e7c0cac6cecb89c4c8ca">[email&#160;protected]</span></a>
+            <a href="https://www.linkedin.com/in/krish-m-mehta/" target="_blank" style="font-size:13px;color:var(--green);text-decoration:none;">LinkedIn →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     ARTICLE PAGE (sample)
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage">
+
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Law &amp; Literature</span>
+      <h1>Before the Law:<br>Parallel of Socio-Religious Societies</h1>
+      <p class="lede">Kafka's parable of the man kept waiting at the door is more than a meditation on bureaucracy. It is a portrait of every socio-religious institution that makes us feel heard while ensuring we never truly escape.</p>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>5 min read · April 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Kafka's <em>Before the Law</em> is an engaging text that leaves a lot of room for interpretation. Though vague, it conveys vivid ideas of power structures that can be generally applicable in life, and as is Kafka's style, especially to bureaucracy. This piece takes place in the larger context of the book <em>The Trial</em>, wherein the protagonist K is unaware of the crime he is arrested for. It is a very relevant piece in the contemporary context, as it eulogises the feeling and experience many face in navigating the justice system as well as other societal systems.</p>
+
+    <p>I interpret this extract as a parallel to the different types of socio-religious groups that we are a part of, and wish we could escape. In my interpretation, the Law is an idealistic state where one is uninfluenced by any form of bias — a state where knowledge would be purely objective and not deeply rooted in politics. Institutions like organised religion, family, and similar structures affect in some way one's capability to make decisions, through good-faith biases or through malicious disinformation, and are thus non-existent in the idealistic world of the Law. In the story, K wished to gain admittance to the Law.</p>
+
+    <h2>The gatekeeper and the door</h2>
+
+    <p>There is a gatekeeper whose job it is to keep K out until the time is right. But the time is never really right. The man waits forever — just as in real life one waits forever to get out of social relationships and communities, but can never escape fully. The door only exists as a false pretence to trick people. It opens for no one, and exists only to make the man feel as though there is a way when there isn't.</p>
+
+    <p>This is a layered realm. One wants to escape all the different socio-religious societies, but when it becomes so difficult, just like K, one can only think of going through the first door. In my interpretation, one might put all their effort into escaping the closest group — like organised religion — but even if one does that, they are no closer to the centre than before.</p>
+
+    <h2>The fur coat of privilege</h2>
+
+    <p>These institutions, just like the gatekeeper, wear a fur coat of privilege. They are unbeknownst to the fact that they are leeching off the people who need the resources more. The heads of these institutions use resources as well as the labour of the people without giving anything in return. We see religious leaders use the fiscal resources of their cult followers to receive in return nothing but a "blessing".</p>
+
+    <p>There is a frequent conversation between the doorkeeper and K, because it establishes a relative closeness and a possibility that the door will open and the gatekeeper will allow that. The gatekeeper makes the man feel heard, but the man is never actually heard. The flies on the gatekeeper are an important piece of symbolism — they signify that at their crux, there exists something dirtier and meaner. The institutions, just like the gatekeeper, have unbridled power to stop K at any time at all.</p>
+
+    <h2>Dying at the door</h2>
+
+    <p>In the end, K dies without knowing what it is like on the other side of the door, and without even taking his chance. Similarly, when we die, we die still within our cultural and religious groups. Though those doors exist, we never open them out of fear of being reprimanded. One never really exits such groups in this world.</p>
+
+    <p>Like K, one just dies trying.</p>
+  </div>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+
+
+
+</div>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <a href="#" class="logo" onclick="showBlog()">the fine <span class="hindi">प्रिंट</span></a>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#">Essays</a>
+    <a href="#">Policy</a>
+    <a href="#">Opinion</a>
+    <a href="#about-section" onclick="showBlog()">About</a>
+  </div>
+  <p>Independent writing on law, policy &amp; power in India. &copy; 2025</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function showArticle() {
+    document.getElementById('blogPage').classList.add('hidden');
+    document.getElementById('articlePage').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showBlog() {
+    document.getElementById('articlePage').classList.remove('active');
+    document.getElementById('blogPage').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const tagMap = {
+    'all': null,
+    'constitutional': 'constitutional',
+    'criminal': 'criminal',
+    'policy': 'policy',
+    'labour': 'labour',
+    'data & tech': 'data',
+    'personal law': 'personal law',
+    'environment': 'environment',
+    'opinion': 'opinion'
+  };
+
+  document.querySelectorAll('.tag').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tag').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const selected = t.textContent.trim().toLowerCase();
+      const filterKey = tagMap[selected];
+      document.querySelectorAll('.card, .opinion-item').forEach(el => {
+        if (!filterKey) {
+          el.style.display = '';
+        } else {
+          const elTags = (el.dataset.tags || '').toLowerCase();
+          el.style.display = elTags.includes(filterKey) ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  const articles = [
+    { title: 'Before the Law: Parallel of Socio-Religious Societies', tag: 'Law & Literature', excerpt: "Kafka's parable of the man kept waiting at the door. A portrait of every socio-religious institution that makes us feel heard while ensuring we never truly escape.", action: showArticle },
+    { title: 'What the Digital Personal Data Protection Act Gets Wrong', tag: 'Policy', excerpt: 'The DPDP Act promises rights but hollows them out through its exceptions and its deference to state interests.', action: showArticle },
+    { title: 'Sedition, Rephrased: The New BNS and Its Silences', tag: 'Opinion', excerpt: 'Renaming sedition does not remove its sting. The Bharatiya Nyaya Sanhita carries its legacy forward in new clothes.', action: showArticle },
+    { title: 'Reservations in the Private Sector: A Constitutional Possibility?', tag: 'Constitutional Law', excerpt: 'The debate rarely engages seriously with what Article 15(5) actually permits and forecloses.', action: showArticle },
+    { title: 'Environmental Clearances and the Infrastructure Imperative', tag: 'Labour Law', excerpt: 'When growth and ecology collide in project approval corridors.', action: showArticle },
+    { title: 'Uniformity vs Diversity: The Uniform Civil Code Debate Unpacked', tag: 'Personal Law', excerpt: 'What the UCC debate actually involves, legally and politically.', action: showArticle },
+    { title: 'Who Governs the Governors? Accountability in Regulatory Bodies', tag: 'Administrative Law', excerpt: "Questions of oversight and accountability in India's regulatory architecture.", action: showArticle },
+    { title: 'Custodial Deaths and the Failure of Institutional Oversight', tag: 'Criminal Law', excerpt: 'The systemic failures that allow custodial violence to persist.', action: showArticle }
+  ];
+
+  const searchInput = document.getElementById('siteSearch');
+  const searchResults = document.getElementById('searchResults');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { searchResults.style.display = 'none'; return; }
+    const matches = articles.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.tag.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q)
+    );
+    if (!matches.length) {
+      searchResults.innerHTML = '<div style="padding:1rem 1.25rem;font-size:13px;color:#7a6450;">No results found.</div>';
+    } else {
+      searchResults.innerHTML = matches.map((a, i) => `
+        <div onclick="searchGo(${i})" style="padding:0.85rem 1.25rem;border-bottom:0.5px solid rgba(59,34,18,0.1);cursor:pointer;background:#fff;" onmouseover="this.style.background='#f5f0e8'" onmouseout="this.style.background='#fff'">
+          <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#c49a2a;font-weight:500;margin-bottom:3px;">${a.tag}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#3b2212;line-height:1.3;">${a.title}</div>
+        </div>
+      `).join('');
+      window._searchMatches = matches;
+    }
+    searchResults.style.display = 'block';
+  });
+
+  window.searchGo = (i) => {
+    window._searchMatches[i].action();
+    searchResults.style.display = 'none';
+    searchInput.value = '';
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      searchResults.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { searchResults.style.display = 'none'; searchInput.value = ''; }
+  });
+
+  async function handleSubscribe() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').style.borderColor = '#b84c2b';
+      return;
+    }
+    const btn = document.querySelector('.newsletter button');
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://api.buttondown.email/v1/subscribers', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token 3255286e-0c85-4ff0-ba86-6e6d0a8b5cff',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email_address: email })
+      });
+      if (res.ok || res.status === 201) {
+        document.getElementById('emailInput').style.display = 'none';
+        btn.style.display = 'none';
+        document.getElementById('subSuccess').style.display = 'block';
+      } else if (res.status === 400) {
+        document.getElementById('subSuccess').textContent = 'You are already subscribed!';
+        document.getElementById('subSuccess').style.display = 'block';
+        document.getElementById('emailInput').style.display = 'none';
+        btn.style.display = 'none';
+      } else {
+        btn.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      btn.textContent = 'Something went wrong. Try again.';
+      btn.disabled = false;
+    }
+  }
+
+</script>
+
+</body>
+</html>
