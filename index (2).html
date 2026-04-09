@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>the fine प्रिंट</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Noto+Serif+Devanagari:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fg:          #1a1008;
+      --cream:       #f5f0e8;
+      --brown:       #3b2212;
+      --terracotta:  #b84c2b;
+      --green:       #2d4a2a;
+      --green-light: #e8ede3;
+      --ochre:       #c49a2a;
+      --ochre-light: #f5edcc;
+      --muted:       #7a6450;
+      --border:      rgba(59,34,18,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--green);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .logo .hindi {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-weight: 900;
+      color: var(--ochre);
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(245,240,232,0.72);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-search-wrap svg {
+      position: absolute;
+      left: 8px;
+      width: 13px;
+      height: 13px;
+      stroke: rgba(245,240,232,0.4);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+    .nav-search {
+      background: rgba(255,255,255,0.09);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      color: var(--cream);
+      font-size: 12px;
+      padding: 6px 10px 6px 28px;
+      width: 160px;
+      outline: none;
+      transition: background 0.2s, width 0.3s;
+    }
+    .nav-search::placeholder { color: rgba(245,240,232,0.35); }
+    .nav-search:focus {
+      background: rgba(255,255,255,0.14);
+      width: 200px;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--terracotta);
+      padding: 5px 0;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* ── WRAPPER ── */
+    .site {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── FEATURED ── */
+    .featured {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      margin: 2.5rem 0 0;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .featured-image {
+      background: var(--brown);
+      min-height: 420px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+    .feat-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 45%, #2d4a2a 100%);
+      opacity: 0.92;
+    }
+    /* decorative pattern overlay */
+    .feat-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 28px,
+          rgba(196,154,42,0.06) 28px,
+          rgba(196,154,42,0.06) 29px
+        );
+    }
+    .feat-tag {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+    .feat-img-text {
+      position: relative;
+      z-index: 1;
+      color: var(--cream);
+    }
+    .feat-img-text p {
+      font-size: 11px;
+      opacity: 0.55;
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .feat-img-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    .featured-meta {
+      padding: 2.5rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 3px solid var(--ochre);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .featured-meta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+    .featured-meta .excerpt {
+      font-family: 'Source Serif 4', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 1rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+    .author-info { font-size: 13px; flex: 1; }
+    .author-info strong { color: var(--brown); display: block; font-weight: 500; }
+    .author-info span { color: var(--muted); font-size: 12px; }
+
+    .read-btn {
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      padding: 8px 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .read-btn:hover { background: #1e3a1b; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.75rem 0 1.5rem;
+    }
+    .section-head h3 {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .section-head hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ARTICLE GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(59,34,18,0.1);
+    }
+
+    .card-thumb {
+      height: 148px;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      position: relative;
+    }
+    .ct-a { background: #2d4a2a; }
+    .ct-b { background: #5a2a12; }
+    .ct-c { background: #4a3a1a; }
+    .ct-d { background: #1e3a2e; }
+    .ct-e { background: #6b2e1a; }
+    .ct-f { background: #3a4a22; }
+
+    /* subtle pattern on card thumbs */
+    .card-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(255,255,255,0.03) 18px,
+        rgba(255,255,255,0.03) 19px
+      );
+    }
+
+    .card-tag {
+      position: relative;
+      z-index: 1;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 2px;
+      background: rgba(245,240,232,0.12);
+      color: var(--cream);
+      border: 0.5px solid rgba(245,240,232,0.25);
+    }
+
+    .card-body {
+      padding: 1rem 1.1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 0.5rem;
+    }
+    .card-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 0.75rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dot { color: var(--ochre); margin: 0 4px; }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── NUMBERED LIST ── */
+    .opinion-stack { display: flex; flex-direction: column; }
+    .opinion-item {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .opinion-item:hover { background: var(--green-light); }
+    .opinion-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--ochre);
+      opacity: 0.35;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 34px;
+    }
+    .opinion-item h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .opinion-item span { font-size: 12px; color: var(--muted); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--green);
+      border-radius: 4px;
+      padding: 1.75rem;
+      color: var(--cream);
+      border-top: 3px solid var(--ochre);
+    }
+    .newsletter .section-label { color: var(--ochre); margin-bottom: 0.5rem; }
+    .newsletter h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .newsletter p { font-size: 13px; color: rgba(245,240,232,0.68); line-height: 1.65; margin-bottom: 1.1rem; }
+    .newsletter input {
+      width: 100%;
+      background: rgba(0,0,0,0.2);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 13px;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter input:focus { border-color: rgba(196,154,42,0.6); }
+    .newsletter input::placeholder { color: rgba(245,240,232,0.35); }
+    .newsletter button {
+      width: 100%;
+      background: var(--terracotta);
+      border: none;
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter button:hover { background: #9e3f22; }
+    .newsletter .success {
+      display: none;
+      font-size: 13px;
+      color: var(--ochre);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* ── TAGS BOX ── */
+    .tags-box {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      margin-top: 1.1rem;
+    }
+    .tags-box .section-label { color: var(--muted); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      padding: 4px 11px;
+      border-radius: 2px;
+      border: 0.5px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      background: var(--cream);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tag:hover { background: var(--ochre-light); color: var(--brown); border-color: var(--ochre); }
+    .tag.active { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .logo { color: var(--cream); font-size: 18px; }
+    footer nav-foot { display: flex; gap: 1.5rem; }
+    footer p { font-size: 12px; color: rgba(245,240,232,0.35); }
+    footer a { color: rgba(245,240,232,0.5); text-decoration: none; font-size: 12px; }
+    footer a:hover { color: var(--cream); }
+
+    /* ── ARTICLE PAGE ── */
+    .article-page { display: none; }
+    .article-page.active { display: block; }
+    .blog-page { display: block; }
+    .blog-page.hidden { display: none; }
+
+    .article-hero {
+      background: var(--brown);
+      padding: 5rem 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 50%, #2d4a2a 100%);
+      opacity: 0.95;
+    }
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(196,154,42,0.05) 30px,
+        rgba(196,154,42,0.05) 31px
+      );
+    }
+    .article-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .article-hero .feat-tag { position: static; display: inline-block; margin-bottom: 1rem; }
+    .article-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+    .article-hero .lede {
+      font-family: 'Source Serif 4', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .article-meta .avatar { background: rgba(255,255,255,0.15); border: 1.5px solid var(--ochre); }
+    .article-meta .author-info strong { color: var(--cream); }
+    .article-meta .author-info span { color: rgba(245,240,232,0.55); }
+
+    .article-body {
+      max-width: 720px;
+      margin: 3.5rem auto;
+      padding: 0 2rem;
+    }
+    .article-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--fg);
+      margin-bottom: 1.5rem;
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 2.5rem 0 1rem;
+      line-height: 1.25;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--ochre);
+      margin: 2rem 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--ochre-light);
+    }
+    .article-body blockquote p {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    .author-bio {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      padding: 1.5rem 2rem;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .author-bio .avatar { width: 48px; height: 48px; font-size: 14px; background: var(--green); flex-shrink: 0; }
+    .author-bio h5 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+    .author-bio p { font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; font-family: 'Source Serif 4', serif; }
+
+
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 2.5rem;
+      transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--brown); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .featured { grid-template-columns: 1fr; }
+      .featured-image { min-height: 280px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      nav { padding: 0 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .feat-img-text h1 { font-size: 24px; }
+      .featured-meta h2 { font-size: 20px; }
+      .article-hero h1 { font-size: 32px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SHARED NAV
+══════════════════════════════════ -->
+<nav>
+  <a href="#" class="logo" onclick="showBlog()">the fine <span class="hindi">प्रिंट</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Essays</a></li>
+    <li><a href="#">Policy</a></li>
+    <li><a href="#">Opinion</a></li>
+    <li><a href="#about-section">About</a></li>
+    <li>
+      <div class="nav-search-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input class="nav-search" placeholder="Search..." type="search" />
+      </div>
+    </li>
+  </ul>
+</nav>
+<div class="ticker">Law · Policy · Power · India</div>
+
+<!-- ══════════════════════════════════
+     BLOG / HOME PAGE
+══════════════════════════════════ -->
+<div class="blog-page" id="blogPage">
+  <div class="site">
+
+    <!-- FEATURED -->
+    <div class="featured">
+      <div class="featured-image">
+        <div class="feat-bg"></div>
+        <div class="feat-pattern"></div>
+        <span class="feat-tag">Essay of the week</span>
+        <div class="feat-img-text">
+          <p>Constitutional Law</p>
+          <h1>The Quiet Death of<br>Judicial Independence</h1>
+        </div>
+      </div>
+      <div class="featured-meta">
+        <div>
+          <p class="section-label">Featured</p>
+          <h2>The Quiet Death of Judicial Independence</h2>
+          <p class="excerpt">A close reading of recent collegium controversies reveals a troubling pattern — the slow erosion of institutional autonomy dressed in procedural language, and what it means for the separation of powers.</p>
+        </div>
+        <div class="author-row">
+          <div class="avatar">AP</div>
+          <div class="author-info">
+            <strong>Ananya Pillai</strong>
+            <span>Guest Contributor · 12 min read</span>
+          </div>
+          <a href="#" class="read-btn" onclick="showArticle(); return false;">Read →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="section-head">
+      <h3>Latest essays</h3>
+      <hr />
+    </div>
+
+    <div class="grid">
+      <div class="card" onclick="showArticle()">
+        <div class="card-thumb ct-a"><span class="card-tag">Policy</span></div>
+        <div class="card-body">
+          <h4>What the Digital Personal Data Protection Act Gets Wrong</h4>
+          <p>The DPDP Act promises rights but hollows them out through its exceptions and its deference to state interests.</p>
+          <div class="card-footer">
+            <span>Rohit Verma<span class="dot">·</span>8 min</span>
+            <span>Mar 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="showArticle()">
+        <div class="card-thumb ct-b"><span class="card-tag">Opinion</span></div>
+        <div class="card-body">
+          <h4>Sedition, Rephrased: The New BNS and Its Silences</h4>
+          <p>Renaming sedition does not remove its sting. The Bharatiya Nyaya Sanhita carries its legacy forward in new clothes.</p>
+          <div class="card-footer">
+            <span>Tara Mehta<span class="dot">·</span>6 min</span>
+            <span>Feb 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" onclick="showArticle()">
+        <div class="card-thumb ct-c"><span class="card-tag">Constitutional Law</span></div>
+        <div class="card-body">
+          <h4>Reservations in the Private Sector: A Constitutional Possibility?</h4>
+          <p>The debate resurfaces periodically but rarely engages seriously with what Article 15(5) actually permits and forecloses.</p>
+          <div class="card-footer">
+            <span>Guest Contributor<span class="dot">·</span>10 min</span>
+            <span>Jan 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+      <div>
+        <div class="section-head" style="margin-top:0;">
+          <h3>More to read</h3>
+          <hr />
+        </div>
+        <div class="opinion-stack">
+          <div class="opinion-item" onclick="showArticle()">
+            <div class="opinion-num">01</div>
+            <div>
+              <h5>Environmental Clearances and the Infrastructure Imperative</h5>
+              <span>Labour Law · Sunita Rao · 9 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle()">
+            <div class="opinion-num">02</div>
+            <div>
+              <h5>Uniformity vs Diversity: The Uniform Civil Code Debate Unpacked</h5>
+              <span>Personal Law · Kabir Saxena · 14 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle()">
+            <div class="opinion-num">03</div>
+            <div>
+              <h5>Who Governs the Governors? Accountability in Regulatory Bodies</h5>
+              <span>Administrative Law · Priya Nair · 7 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" onclick="showArticle()">
+            <div class="opinion-num">04</div>
+            <div>
+              <h5>Custodial Deaths and the Failure of Institutional Oversight</h5>
+              <span>Criminal Law · Guest Contributor · 11 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="newsletter">
+          <p class="section-label">Newsletter</p>
+          <h4>The Weekly Writ</h4>
+          <p>One essay, one case note, one thing worth reading — every Friday morning.</p>
+          <input type="email" placeholder="Your email address" id="emailInput" />
+          <button onclick="handleSubscribe()">Subscribe</button>
+          <p class="success" id="subSuccess">You're in. See you Friday.</p>
+        </div>
+        <div class="tags-box">
+          <p class="section-label">Browse by topic</p>
+          <div class="tag-cloud">
+            <span class="tag active">All</span>
+            <span class="tag">Constitutional</span>
+            <span class="tag">Criminal</span>
+            <span class="tag">Policy</span>
+            <span class="tag">Labour</span>
+            <span class="tag">Data &amp; Tech</span>
+            <span class="tag">Personal Law</span>
+            <span class="tag">Environment</span>
+            <span class="tag">Opinion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about-section" style="margin-bottom:3rem;padding:2.5rem;background:#fff;border:0.5px solid var(--border);border-left:3px solid var(--ochre);border-radius:4px;">
+      <p class="section-label">About</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--brown);margin-bottom:1rem;line-height:1.3;">About the fine प्रिंट</h2>
+      <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.8;color:var(--muted);max-width:680px;">
+        <em>the fine प्रिंट</em> is an independent blog for long-form writing on law, policy, and power in India. We publish essays, opinion, and analysis from lawyers, academics, and practitioners who believe that the details matter — that the fine print shapes lives.
+      </p>
+      <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.8;color:var(--muted);max-width:680px;margin-top:1rem;">
+        We welcome guest contributions. If you have something to say about Indian law or policy, write to us.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     ARTICLE PAGE (sample)
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage">
+
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Constitutional Law</span>
+      <h1>The Quiet Death of<br>Judicial Independence</h1>
+      <p class="lede">A close reading of recent collegium controversies reveals a troubling pattern — the slow erosion of institutional autonomy dressed in procedural language.</p>
+      <div class="article-meta">
+        <div class="avatar">AP</div>
+        <div class="author-info">
+          <strong>Ananya Pillai</strong>
+          <span>Guest Contributor · 12 min read · March 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>The collegium system has long been the subject of criticism — from scholars who question its opacity, from governments that chafe at its autonomy, and from citizens who never quite understood how it worked. But recent months have seen something different: not an open confrontation, but a quiet renegotiation of the terms of judicial independence itself.</p>
+
+    <p>Consider the pattern. A name is recommended. Months pass. The government does not formally return the recommendation, but neither does it act on it. The name stays in limbo. Eventually, quietly, it is dropped or replaced. No explanation is offered. No procedure was violated. Yet something was lost.</p>
+
+    <h2>The procedural frame</h2>
+
+    <p>The Supreme Court's 1993 and 1998 judgments in the Three Judges Cases established the collegium as the primary mechanism for judicial appointments. The logic was straightforward: to insulate the judiciary from executive overreach, the power of appointment must rest with judges themselves. The government's role was reduced to a consultative one, its concurrence assumed once the collegium had spoken twice.</p>
+
+    <blockquote>
+      <p>"The independence of the judiciary is not a privilege of the judge, but a guarantee for those who seek justice."</p>
+    </blockquote>
+
+    <p>What the judgments did not anticipate — or perhaps chose not to address — was the possibility of executive resistance through non-action. There is no constitutional provision that compels the government to act on a collegium recommendation within any fixed time. The government can, in theory, simply do nothing.</p>
+
+    <h2>What silence costs</h2>
+
+    <p>The cost of this silence is distributed unevenly. Candidates who are recommended but not appointed face professional uncertainty. Courts whose vacancies are not filled operate under increasing pressure. And the signal sent to those who might be recommended — that elevation carries no guarantee, that considerations beyond merit may be at play — is difficult to measure but impossible to ignore.</p>
+
+    <p>None of this constitutes a legal violation. The government has not defied a court order. No contempt has been committed. But the question of institutional independence is not merely a legal one. It is also a question of practice, of convention, and of the accumulated weight of behaviour over time.</p>
+
+    <p>What we are witnessing, perhaps, is the slow redefinition of what independence means — not through doctrine, but through the accumulation of unremarked-upon departures from a norm that was never fully codified to begin with.</p>
+  </div>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="avatar">AP</div>
+    <div>
+      <h5>Ananya Pillai</h5>
+      <p>Ananya Pillai is an advocate practising before the Supreme Court of India. She writes on constitutional law and judicial institutions. She is a graduate of NALSAR University of Law and holds an LLM from the University of Oxford.</p>
+    </div>
+  </div>
+
+
+
+</div>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <a href="#" class="logo" onclick="showBlog()">the fine <span class="hindi">प्रिंट</span></a>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#">Essays</a>
+    <a href="#">Policy</a>
+    <a href="#">Opinion</a>
+    <a href="#about-section" onclick="showBlog()">About</a>
+  </div>
+  <p>Independent writing on law, policy &amp; power in India. &copy; 2025</p>
+</footer>
+
+<script>
+  function showArticle() {
+    document.getElementById('blogPage').classList.add('hidden');
+    document.getElementById('articlePage').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showBlog() {
+    document.getElementById('articlePage').classList.remove('active');
+    document.getElementById('blogPage').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('.tag').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tag').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+
+  function handleSubscribe() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').style.borderColor = '#b84c2b';
+      return;
+    }
+    document.getElementById('emailInput').style.display = 'none';
+    document.querySelector('.newsletter button').style.display = 'none';
+    document.getElementById('subSuccess').style.display = 'block';
+  }
+
+
+</script>
+
+</body>
+</html>
