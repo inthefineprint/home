@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>the fine प्रिंट</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Noto+Serif+Devanagari:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fg:          #1a1008;
+      --cream:       #f5f0e8;
+      --brown:       #3b2212;
+      --terracotta:  #b84c2b;
+      --green:       #2d4a2a;
+      --green-light: #e8ede3;
+      --ochre:       #c49a2a;
+      --ochre-light: #f5edcc;
+      --muted:       #7a6450;
+      --border:      rgba(59,34,18,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── HOVER EFFECTS ── */
+    .card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:not([style*="cursor:default"]):hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(59,34,18,0.13);
+    }
+    .opinion-item {
+      transition: background 0.15s, transform 0.2s ease, padding-left 0.2s ease;
+    }
+    .opinion-item:not([style*="cursor:default"]):hover {
+      padding-left: 1.6rem;
+      background: var(--green-light);
+    }
+    .read-btn {
+      transition: background 0.2s, transform 0.15s;
+    }
+    .read-btn:hover {
+      transform: translateX(3px);
+    }
+    .feat-tag {
+      transition: background 0.2s;
+    }
+    .tag {
+      transition: all 0.15s ease;
+    }
+    .tag:hover {
+      transform: translateY(-1px);
+    }
+    nav a {
+      transition: color 0.2s, letter-spacing 0.2s;
+    }
+    nav a:hover {
+      letter-spacing: 0.14em;
+    }
+    .opinion-num {
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .opinion-item:not([style*="cursor:default"]):hover .opinion-num {
+      opacity: 0.8;
+      transform: scale(1.15);
+    }
+    .back-btn {
+      transition: color 0.15s, transform 0.2s;
+    }
+    .back-btn:hover {
+      transform: translateX(-4px);
+    }
+    .featured {
+      transition: box-shadow 0.3s;
+    }
+    .featured:hover {
+      box-shadow: 0 12px 40px rgba(59,34,18,0.12);
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--green);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .logo .hindi {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-weight: 900;
+      color: var(--ochre);
+      font-size: 26px;
+      position: relative;
+      top: 4px;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(245,240,232,0.72);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-search-wrap svg {
+      position: absolute;
+      left: 8px;
+      width: 13px;
+      height: 13px;
+      stroke: rgba(245,240,232,0.4);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+    .nav-search {
+      background: rgba(255,255,255,0.09);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      color: var(--cream);
+      font-size: 12px;
+      padding: 6px 10px 6px 28px;
+      width: 160px;
+      outline: none;
+      transition: background 0.2s, width 0.3s;
+    }
+    .nav-search::placeholder { color: rgba(245,240,232,0.35); }
+    .nav-search:focus {
+      background: rgba(255,255,255,0.14);
+      width: 200px;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--terracotta);
+      padding: 5px 0;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* ── WRAPPER ── */
+    .site {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── FEATURED ── */
+    .featured {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      margin: 2.5rem 0 0;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .featured-image {
+      background: var(--brown);
+      min-height: 420px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+    .feat-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 45%, #2d4a2a 100%);
+      opacity: 0.92;
+    }
+    /* decorative pattern overlay */
+    .feat-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 28px,
+          rgba(196,154,42,0.06) 28px,
+          rgba(196,154,42,0.06) 29px
+        );
+    }
+    .feat-tag {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+    .feat-img-text {
+      position: relative;
+      z-index: 1;
+      color: var(--cream);
+    }
+    .feat-img-text p {
+      font-size: 11px;
+      opacity: 0.55;
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .feat-img-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    .featured-meta {
+      padding: 2.5rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 3px solid var(--ochre);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .featured-meta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+    .featured-meta .excerpt {
+      font-family: 'Source Serif 4', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 1rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+    .author-info { font-size: 13px; flex: 1; }
+    .author-info strong { color: var(--brown); display: block; font-weight: 500; }
+    .author-info span { color: var(--muted); font-size: 12px; }
+
+    .read-btn {
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      padding: 8px 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .read-btn:hover { background: #1e3a1b; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.75rem 0 1.5rem;
+    }
+    .section-head h3 {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .section-head hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ARTICLE GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(59,34,18,0.1);
+    }
+
+    .card-thumb {
+      height: 148px;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      position: relative;
+    }
+    .ct-a { background: #2d4a2a; }
+    .ct-b { background: #5a2a12; }
+    .ct-c { background: #4a3a1a; }
+    .ct-d { background: #1e3a2e; }
+    .ct-e { background: #6b2e1a; }
+    .ct-f { background: #3a4a22; }
+
+    /* subtle pattern on card thumbs */
+    .card-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(255,255,255,0.03) 18px,
+        rgba(255,255,255,0.03) 19px
+      );
+    }
+
+    .card-tag {
+      position: relative;
+      z-index: 1;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 2px;
+      background: rgba(245,240,232,0.12);
+      color: var(--cream);
+      border: 0.5px solid rgba(245,240,232,0.25);
+    }
+
+    .card-body {
+      padding: 1rem 1.1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brown);
+      margin-bottom: 0.5rem;
+    }
+    .card-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 0.75rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dot { color: var(--ochre); margin: 0 4px; }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── NUMBERED LIST ── */
+    .opinion-stack { display: flex; flex-direction: column; }
+    .opinion-item {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .opinion-item:hover { background: var(--green-light); }
+    .opinion-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--ochre);
+      opacity: 0.35;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 34px;
+    }
+    .opinion-item h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .opinion-item span { font-size: 12px; color: var(--muted); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--green);
+      border-radius: 4px;
+      padding: 1.75rem;
+      color: var(--cream);
+      border-top: 3px solid var(--ochre);
+    }
+    .newsletter .section-label { color: var(--ochre); margin-bottom: 0.5rem; }
+    .newsletter h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .newsletter p { font-size: 13px; color: rgba(245,240,232,0.68); line-height: 1.65; margin-bottom: 1.1rem; }
+    .newsletter input {
+      width: 100%;
+      background: rgba(0,0,0,0.2);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 13px;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter input:focus { border-color: rgba(196,154,42,0.6); }
+    .newsletter input::placeholder { color: rgba(245,240,232,0.35); }
+    .newsletter button {
+      width: 100%;
+      background: var(--terracotta);
+      border: none;
+      border-radius: 3px;
+      color: var(--cream);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter button:hover { background: #9e3f22; }
+    .newsletter .success {
+      display: none;
+      font-size: 13px;
+      color: var(--ochre);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* ── TAGS BOX ── */
+    .tags-box {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      margin-top: 1.1rem;
+    }
+    .tags-box .section-label { color: var(--muted); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      padding: 4px 11px;
+      border-radius: 2px;
+      border: 0.5px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      background: var(--cream);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tag:hover { background: var(--ochre-light); color: var(--brown); border-color: var(--ochre); }
+    .tag.active { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .logo { color: var(--cream); font-size: 18px; }
+    footer nav-foot { display: flex; gap: 1.5rem; }
+    footer p { font-size: 12px; color: rgba(245,240,232,0.35); }
+    footer a { color: rgba(245,240,232,0.5); text-decoration: none; font-size: 12px; }
+    footer a:hover { color: var(--cream); }
+
+    /* ── ARTICLE PAGE ── */
+    .article-page { display: none; }
+    .blog-page { display: block; }
+    .blog-page.hidden { display: none; }
+
+    .article-hero {
+      background: var(--brown);
+      padding: 5rem 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #3b2212 0%, #6b3a1f 50%, #2d4a2a 100%);
+      opacity: 0.95;
+    }
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(196,154,42,0.05) 30px,
+        rgba(196,154,42,0.05) 31px
+      );
+    }
+    .article-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .article-hero .feat-tag { position: static; display: inline-block; margin-bottom: 1rem; }
+    .article-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+    .article-hero .lede {
+      font-family: 'Source Serif 4', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .article-meta .avatar { background: rgba(255,255,255,0.15); border: 1.5px solid var(--ochre); }
+    .article-meta .author-info strong { color: var(--cream); }
+    .article-meta .author-info span { color: rgba(245,240,232,0.55); }
+
+    .article-body {
+      max-width: 720px;
+      margin: 3.5rem auto;
+      padding: 0 2rem;
+    }
+    .article-body p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--fg);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 2.5rem 0 1rem;
+      line-height: 1.25;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--ochre);
+      margin: 2rem 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--ochre-light);
+    }
+    .article-body blockquote p {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    .author-bio {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      padding: 1.5rem 2rem;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .author-bio .avatar { width: 48px; height: 48px; font-size: 14px; background: var(--green); flex-shrink: 0; }
+    .author-bio h5 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+    .author-bio p { font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; font-family: 'Source Serif 4', serif; }
+
+
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 2.5rem;
+      transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--brown); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .featured { grid-template-columns: 1fr; }
+      .featured-image { min-height: 280px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      nav { padding: 0 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .feat-img-text h1 { font-size: 24px; }
+      .featured-meta h2 { font-size: 20px; }
+      .article-hero h1 { font-size: 32px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SHARED NAV
+══════════════════════════════════ -->
+<nav>
+  <a href="#" class="logo" onclick="goHome(); return false;">the fine <span class="hindi">प्रिंट</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="goHome(); return false;">Essays</a></li>
+    <li><a href="#about-section" onclick="showBlog()">About</a></li>
+    <li><a href="#" onclick="showContact(); return false;">Contact</a></li>
+    <li>
+      <div class="nav-search-wrap" style="position:relative;">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input class="nav-search" placeholder="Search..." type="search" id="siteSearch" autocomplete="off" />
+        <div id="searchResults" style="display:none;position:absolute;top:38px;right:0;width:300px;background:#fff;border:0.5px solid rgba(59,34,18,0.2);border-radius:4px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;overflow:hidden;"></div>
+      </div>
+    </li>
+  </ul>
+</nav>
+<div class="ticker">Law · Policy · Culture</div>
+
+<!-- ══════════════════════════════════
+     BLOG / HOME PAGE
+══════════════════════════════════ -->
+<div class="blog-page" id="blogPage">
+  <div class="site">
+
+    <!-- FEATURED -->
+    <div class="featured">
+      <div class="featured-image">
+        <div class="feat-bg"></div>
+        <div class="feat-pattern"></div>
+        <span class="feat-tag">Featured essay</span>
+        <div class="feat-img-text">
+          <p>Constitutional Law</p>
+          <h1>Whipped in Line</h1>
+        </div>
+      </div>
+      <div class="featured-meta">
+        <div style="flex:1;overflow:hidden;">
+          <p class="section-label">Featured</p>
+          <div style="position:relative;max-height:130px;overflow:hidden;cursor:pointer;" onclick="showArticle3()">
+            <p class="excerpt">When one reminisces about the idea of Indian freedom from the British, one stresses the idea of independence. Independence is an integral aspect of India and for a country that ideologically affinates with freedom, we, ironically, have many laws stifling it — the Anti-defection law being one of the most unassuming.</p>
+            <p class="excerpt">This essay explores the concept of party whips, mandates and independents in relation to Anti-defection law.</p>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom, transparent, #ffffff);"></div>
+          </div>
+        </div>
+        <div class="author-row">
+          <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+          <div class="author-info">
+            <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></strong>
+            <span>6 min read</span>
+          </div>
+          <a href="#" class="read-btn" onclick="showArticle3(); return false;">Read →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="section-head">
+      <h3>Latest essays</h3>
+      <hr />
+    </div>
+
+    <div class="grid">
+      <div class="card" data-tags="opinion" onclick="showArticle2()">
+        <div class="card-thumb ct-b"><span class="card-tag">Music &amp; Culture</span></div>
+        <div class="card-body">
+          <h4>FKA Twigs' <em>Eusexua</em> as Anti-Fascist</h4>
+          <p>Twigs does not write a manifesto. She describes a feeling — and in doing so argues that liberation must begin in the body.</p>
+          <div class="card-footer">
+            <span>Krish Mehta<span class="dot">·</span>8 min</span>
+            <span>Apr 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="constitutional" onclick="showArticle3()">
+        <div class="card-thumb ct-c"><span class="card-tag">Constitutional Law</span></div>
+        <div class="card-body">
+          <h4>Whipped in Line</h4>
+          <p>The Role of Party Whips and Anti-Defection Laws in India's Parliamentary Democracy.</p>
+          <div class="card-footer">
+            <span>Krish Mehta<span class="dot">·</span>6 min</span>
+            <span>2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="opinion" onclick="showArticle4()">
+        <div class="card-thumb ct-d"><span class="card-tag">International Relations</span></div>
+        <div class="card-body">
+          <h4>The Modern White Man's Burden</h4>
+          <p>A contemporary look at the systems that maintain western hegemony.</p>
+          <div class="card-footer">
+            <span>Krish Mehta<span class="dot">·</span>7 min</span>
+            <span>2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="opinion" onclick="showArticle5()">
+        <div class="card-thumb ct-e"><span class="card-tag">Technology &amp; Society</span></div>
+        <div class="card-body">
+          <h4>I'm in Your Walls</h4>
+          <p>An essay on social media algorithms and predicting human behavior.</p>
+          <div class="card-footer">
+            <span>Krish Mehta<span class="dot">·</span>5 min</span>
+            <span>2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-tags="law literature" onclick="showArticle()">
+        <div class="card-thumb ct-a"><span class="card-tag">Law &amp; Literature</span></div>
+        <div class="card-body">
+          <h4>Before the Law: Parallel of Socio-Religious Societies</h4>
+          <p>Kafka's parable of the man kept waiting at the door and what it says about socio-religious institutions.</p>
+          <div class="card-footer">
+            <span>Krish Mehta<span class="dot">·</span>5 min</span>
+            <span>Apr 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="section-head" style="margin-top:0;">
+          <h3>More to read</h3>
+          <hr />
+        </div>
+    <!-- TWO COL -->
+    </div><!-- close .site -->
+    <div style="max-width:1120px;margin:0 auto;padding:0 2rem;">
+    <div class="two-col">
+      <div>
+        <div class="section-head" style="margin-top:0;">
+          <h3>More to read</h3>
+          <hr />
+        </div>
+        <div class="opinion-stack">
+          <div class="opinion-item" data-tags="law literature" onclick="showArticle()">
+            <div class="opinion-num">01</div>
+            <div>
+              <h5>Before the Law: Parallel of Socio-Religious Societies</h5>
+              <span>Law &amp; Literature · Krish Mehta · 5 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="opinion" onclick="showArticle2()">
+            <div class="opinion-num">02</div>
+            <div>
+              <h5>FKA Twigs' Eusexua as Anti-Fascist</h5>
+              <span>Music &amp; Culture · Krish Mehta · 8 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="constitutional" onclick="showArticle3()">
+            <div class="opinion-num">03</div>
+            <div>
+              <h5>Whipped in Line</h5>
+              <span>Constitutional Law · Krish Mehta · 6 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="opinion" onclick="showArticle4()">
+            <div class="opinion-num">04</div>
+            <div>
+              <h5>The Modern White Man's Burden</h5>
+              <span>International Relations · Krish Mehta · 7 min read</span>
+            </div>
+          </div>
+          <div class="opinion-item" data-tags="opinion" onclick="showArticle5()">
+            <div class="opinion-num">05</div>
+            <div>
+              <h5>I'm in Your Walls</h5>
+              <span>Technology &amp; Society · Krish Mehta · 5 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tags-box">
+          <p class="section-label">Browse by topic</p>
+          <div class="tag-cloud">
+            <span class="tag active">All</span>
+            <span class="tag">Constitutional</span>
+            <span class="tag">Criminal</span>
+            <span class="tag">Policy</span>
+            <span class="tag">Labour</span>
+            <span class="tag">Data &amp; Tech</span>
+            <span class="tag">Personal Law</span>
+            <span class="tag">Environment</span>
+            <span class="tag">Opinion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about-section" style="margin-bottom:3rem;background:#fff;border:0.5px solid var(--border);border-radius:4px;overflow:hidden;">
+      <div style="background:var(--green);padding:2rem 2.5rem;border-bottom:3px solid var(--ochre);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--ochre);flex-shrink:0;" />
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:6px;">The writer</p>
+          <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:4px;">Krish Mehta</h2>
+          <p style="font-size:13px;color:rgba(245,240,232,0.65);">B.A. LL.B. · Jindal Global Law School · Editorial Head, Jindal Policy Research Lab</p>
+        </div>
+      </div>
+      <div style="padding:2.5rem;display:grid;grid-template-columns:1.6fr 1fr;gap:3rem;">
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:1rem;">About</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:1.25rem;">Krish Mehta is a law student at Jindal Global Law School, O.P. Jindal Global University, where he is pursuing a B.A. LL.B. He writes on Indian law, policy, and governance, with a particular interest in the places where legal text and lived reality diverge.</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:1.25rem;">He has interned with Senior Advocate Pradeep Rai, gaining exposure to proceedings at the Delhi High Court and the Supreme Court of India, and at the Advocatespedia Foundation, where he drafted legal documents.</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:16px;line-height:1.85;color:var(--muted);">Beyond practice, Krish is deeply involved in research and editorial work at university. He serves as Editorial Head of the Jindal Policy Research Lab and as Deputy Editor at the Centre for Afghanistan Studies. He has also contributed to Policy Corner.</p>
+        </div>
+        <div>
+          <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:1rem;">Roles &amp; affiliations</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border-left:2px solid var(--ochre);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Editorial Head</p>
+              <p style="font-size:12px;color:var(--muted);">Jindal Policy Research Lab · 2026–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--green);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Deputy Editor</p>
+              <p style="font-size:12px;color:var(--muted);">Centre for Afghanistan Studies · 2025–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--green);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Editorial Committee</p>
+              <p style="font-size:12px;color:var(--muted);">Policy Corner · 2025–Present</p>
+            </div>
+            <div style="border-left:2px solid var(--border);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Internship</p>
+              <p style="font-size:12px;color:var(--muted);">Advocate Pradeep Rai · Supreme Court &amp; Delhi HC · Dec 2025</p>
+            </div>
+            <div style="border-left:2px solid var(--border);padding-left:1rem;">
+              <p style="font-size:13px;font-weight:500;color:var(--brown);">Internship</p>
+              <p style="font-size:12px;color:var(--muted);">Advocatespedia Foundation · Jul 2025</p>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:0.5px solid var(--border);">
+            <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:0.75rem;">Get in touch</p>
+            <a href="mailto:krish.km.mehta@gmail.com" style="font-size:13px;color:var(--green);text-decoration:none;display:block;margin-bottom:4px;">krish.km.mehta@gmail.com</a>
+            <a href="https://www.linkedin.com/in/krish-m-mehta/" target="_blank" style="font-size:13px;color:var(--green);text-decoration:none;">LinkedIn →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- close wrapper div -->
+</div><!-- close blogPage -->
+
+<!-- ══════════════════════════════════
+     ARTICLE PAGE (sample)
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage">
+
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Law &amp; Literature</span>
+      <h1>Before the Law:<br>Parallel of Socio-Religious Societies</h1>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>5 min read · April 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Kafka's <em>Before the Law</em> is an engaging text that leaves a lot of room for interpretation. Though vague, it conveys vivid ideas of power structures that can be generally applicable in life, and as is Kafka's style, especially to bureaucracy. This piece takes place in the larger context of the book <em>The Trial</em>, wherein the protagonist K is unaware of the crime he is arrested for. It is a very relevant piece in the contemporary context, as it eulogises the feeling and experience many face in navigating the justice system as well as other societal systems.</p>
+
+    <p>I interpret this extract as a parallel to the different types of socio-religious groups that we are a part of, and wish we could escape. In my interpretation, the Law is an idealistic state where one is uninfluenced by any form of bias — a state where knowledge would be purely objective and not deeply rooted in politics. Institutions like organised religion, family, and similar structures affect in some way one's capability to make decisions, through good-faith biases or through malicious disinformation, and are thus non-existent in the idealistic world of the Law. In the story, K wished to gain admittance to the Law.</p>
+
+    <h2>The gatekeeper and the door</h2>
+
+    <p>There is a gatekeeper whose job it is to keep K out until the time is right. But the time is never really right. The man waits forever — just as in real life one waits forever to get out of social relationships and communities, but can never escape fully. The door only exists as a false pretence to trick people. It opens for no one, and exists only to make the man feel as though there is a way when there isn't.</p>
+
+    <p>This is a layered realm. One wants to escape all the different socio-religious societies, but when it becomes so difficult, just like K, one can only think of going through the first door. In my interpretation, one might put all their effort into escaping the closest group — like organised religion — but even if one does that, they are no closer to the centre than before.</p>
+
+    <h2>The fur coat of privilege</h2>
+
+    <p>These institutions, just like the gatekeeper, wear a fur coat of privilege. They are unbeknownst to the fact that they are leeching off the people who need the resources more. The heads of these institutions use resources as well as the labour of the people without giving anything in return. We see religious leaders use the fiscal resources of their cult followers to receive in return nothing but a "blessing".</p>
+
+    <p>There is a frequent conversation between the doorkeeper and K, because it establishes a relative closeness and a possibility that the door will open and the gatekeeper will allow that. The gatekeeper makes the man feel heard, but the man is never actually heard. The flies on the gatekeeper are an important piece of symbolism — they signify that at their crux, there exists something dirtier and meaner. The institutions, just like the gatekeeper, have unbridled power to stop K at any time at all.</p>
+
+    <h2>Dying at the door</h2>
+
+    <p>In the end, K dies without knowing what it is like on the other side of the door, and without even taking his chance. Similarly, when we die, we die still within our cultural and religious groups. Though those doors exist, we never open them out of fear of being reprimanded. One never really exits such groups in this world.</p>
+
+    <p>Like K, one just dies trying.</p>
+  </div>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+
+
+
+</div>
+
+<!-- ══════════════════════════════════
+     ARTICLE 2: EUSEXUA
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage2">
+
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Music &amp; Culture</span>
+      <h1>FKA Twigs' <em>Eusexua</em> as Anti-Fascist</h1>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>8 min read · April 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p style="font-style:italic;font-weight:600;text-align:center;color:var(--brown);">EUSEXUA IS A PRACTICE<br>EUSEXUA IS A STATE OF BEING<br>EUSEXUA IS THE PINNACLE OF HUMAN EXPERIENCE</p>
+
+    <p>FKA Twigs is a big name in the alternative music world. After a really really long gap after her second album, she came out with a third album called Eusexua and in this album she talks about this feeling of euphoria called Eusexua. To understand the material with which she is engaging we need to understand the context in which this album emerges first. This album comes out of Twigs's time in the rave scene in Europe. This is integral to understanding the motivations behind this album because after a commercially successful second album, Twigs, when spending time in the US or the UK, was easily recognizable and felt constantly surveilled. At the raves in Europe she did not have this burden, and as someone who was liberated from scrutiny was able to feel Eusexual. That is the context in which this album emerges.</p>
+
+    <p>Now to understand what this feeling of Eusexua is, we need to understand the way Twiggs describes it. They call it a feeling of euphoria or a feeling of flow. Something that one feels in a chance sexual encounter or while working on a passion project, or something that someone might feel when doing something that makes them lose track of time, these themes are very present throughout the album. For example in one of the songs she talks about how the perfect object of attraction is a stranger because you know nothing about this person. Additionally a lot of the themes of Eusexua as an album also delve into sexual pleasure outside the confines of monogamous relationships.</p>
+
+    <p>However owing to the genre that FKA Twigs is a part of, that is hyper-pop and alternative. It is very difficult to read into the actual text of the songs, that is the lyrics. Instead what we can do is look into the paratext of this album. We need to look around into the surrounding material, into what is not being said but is being felt throughout this album. In a lot of interviews, Twigs talks about how this album is supposed to represent somatic healing. In many ways it is a phenomenological outlook on experiencing life and on healing the mind through physical feelings.</p>
+
+    <p>Aesthetically and emotionally this experience is very similar to how Winston would feel while having a sexual encounter with Julia in 1984. The feeling of euphoric pleasure and losing track of time is something that is inherently anti-fascist. It breaks out of the mold of productivity and uniformity and tries to feel human pleasure.</p>
+
+    <p>In songs like the title track, Twigs explores the bureaucratic nature of the world and critiques it from an absurdist point of view, which is de-centering the mind as the site of knowledge creation but rather centering a somatic phenomenological take on how working in a bureaucratic environment that is constantly changing from one thing to another (even though all those things are the same) makes a subject of such a bureaucratic system feel. This can be seen in the beginning of the music video for the title track, where she is working in an office and has to deal with the mode of receiving updates being changed from one text platform to another text platform. The paratext that leads to this analysis is evident in the music videos as well, where it is centered around the bodies of people twisting and contorting into positions that make the body feel visceral, and the site of emotion.</p>
+
+    <h2>Perfect Stranger</h2>
+
+    <p>In the song "Perfect Stranger," there are lyrics which go: "I don't know the name of the town you're from, your star sign or the school you failed. I don't know and I don't care." These lyrics indicate a dissent to fascism because it breaks free from a patriarchal concept of strict gender roles, a control over reproduction, and the narrative of purity that generally comes along in fascist systems. Twigs describes two strangers having a sexual encounter as perfect because they know nothing about each other and having no strings attached helps her to feel this feeling of Eusexua; that is how she heals, phenomenologically.</p>
+
+    <p>In the same song she says, "What is this human nature? Don't answer, I am in rapture." This also follows the same theme. But it further extends it to help us realize that this quest that she is on to feel Eusexua isn't one to get to an answer but rather this phenomenological feeling and experience is itself the end goal. She says that she loves danger because in a system built on its institutions of power, this is her way of breaking free from an intellectualized, structural concept of imagining the world to a phenomenological understanding of the world based on her own personal experiences of feelings like Eusexua.</p>
+
+    <h2>Drums of Death</h2>
+
+    <p>In the song "Drums of Death," she says, "Listen up girl, drop your skirt to the floor, tear your clothes, body torn, shed your skin, rip your shirt, the flesh exposed... Hello it's your life, do what you wanna meet later?" Twigs through this song, it is trying to explain that feeling of reclaiming authority from institutions that define feeling and instead defining her own world.</p>
+
+    <p>Though not explicit, there are implications of crime and of loving crime throughout Twigs' work. In this song too she says "crash the system, diva role, serve cunt, serve violence." This clearly shows her feeling towards systems of power, where she is trying to dissent and step away from such systems. She is motivating sabotage of existing systemic power structures.</p>
+
+    <h2>Striptease &amp; Wanderlust</h2>
+
+    <p>In the song titled "Striptease," Twigs talks about how somebody unraveling her emotions and trying to understand who she is as a person feels like a striptease. She equates these two because, to her, an emotional experience (that of being understood) can only be equated by a phenomenological experience of a striptease. The feeling of Eusexua that one gets while being a part of a striptease is the only way that she can explain the feeling of what it's like to be understood.</p>
+
+    <p>In the song "Wanderlust," she says, "It's alright to be the light, to cross the sea, to wanna ride with the higher tides. You've one life to live; do it freely. It's your choice to break or believe in it." This too has similar themes of breaking free from oppressive systems and systematic power structures and going against these types of fascist institutions.</p>
+
+    <h2>Eusexua as anti-fascist text</h2>
+
+    <p>FKA Twigs' Eusexua is ultimately an album about reclaiming the body as a site of knowledge, resistance, and healing. Through the concept of "Eusexua" Twigs offers a phenomenological counter-narrative to the fascist project of control, surveillance, and bodily discipline.</p>
+
+    <p>As we have seen across the album's tracks, from the liberatory anonymity of Perfect Stranger to the systemic sabotage implicit in Drums of Death, Twigs consistently positions the body and its pleasures outside the reach of institutional power. The rave scene that birthed this album is itself a fitting origin as a space defined by anonymity, collective phenomenological feeling, and the deliberate suspension of identity, all of which are antithetical to fascism's demand for legibility, purity, and order.</p>
+
+    <p>What makes Eusexua particularly compelling as an anti-fascist text is that it does not make its argument intellectually. It makes it somatically. Twigs instead of writing a manifesto describes a feeling. And in doing so, she says that fascism is first and foremost a psychological and bodily condition, and that liberation must therefore begin in the body too.</p>
+  </div>
+
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     ARTICLE 3: WHIPPED IN LINE
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage3">
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Constitutional Law</span>
+      <h1>Whipped in Line</h1>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>6 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-body">
+    <p>When one reminisces about the idea of Indian freedom from the British, one stresses the idea of independence. Independence is an integral aspect of India and for a country that ideologically affinates with freedom, we, ironically, have many laws stifling it, Unlawful Activities (Prevention) Act (UAPA), AFSPA and more passively, the Anti-defection law. Unassuming at first, this act goes a long way to stifling independence of thought, and violating the people's right to be represented in the parliament. This essay explores the concept of party whips, mandates and independents in relation to Anti-defection law.</p>
+
+    <blockquote><p>"The objectives of this Bill are laughable and it will definitely act as a deterrent against defections But the basic aim and idea of the bill is that with a view to create a healthy democracy in the country, independents, non-recognised political parties, small parties and regional parties are not conducive to the growth of democracy. Therefore, our aim is that If we want to maintain and develop democracy, national parties of equal calibre and contest should be developed. Unfortunately. It is not happening."<br><br>— B. K. Gadhvi in the parliamentary debates in 1985</p></blockquote>
+
+    <h2>The anti-defection law</h2>
+    <p>When the Goods and Service Tax (GST) Act was being passed in parliament in 2017, like other constitutional amendments, it required 2/3 majority. Out of the then 545 members, that fraction is 364. That day, 443 members were present and all voted in favor with zero members abstaining. Out of the 545 total members, 37 of the AIADMK had walked out and 65 were absent, coming to the final number 443. Now, without a mandate to ensure presence, many members could have coincidentally taken a "casual leave", or called in sick. But unfortunately, to ensure the "integrity" of the democratic process comes a whip.</p>
+
+    <p>A whip is a person appointed within the party vested with the powers form the anti-defection law who issues a directive for the members of their political party to: be present, vote according to party line (as communicated by the whip), or face consequences. The parties on the day of the GST act passed a whip to be present and voting in favor, except for AIADMK who passed a whip for a walkout.</p>
+
+    <p>The aforementioned consequences under the anti-defection law, is "disqualification for defection" under articles 102(2) &amp; 191(2). If this law didn't exist, the governing party would have to go to each member of the parliament and convince them to vote one way. The "resources" that that would take alone are insurmountable. But with this act, instead of each member, the governing party can, by convincing only the heads of parties (7 people that control 83% of the power), "convince" the entire party.</p>
+
+    <h2>Democracy reduced to eight people</h2>
+    <p>This whipping in line of the elected representative of the people reduces their function as representatives and also reduces the variability of policy. In an increasingly anti-democratic world, it decreases room for conversation and dissent. Even further, it fosters an environment of animosity in face of disagreement, fallouts of which can be seen today. MPs vote not out of a moral conscience or logic, but rather out of fear and job insecurity. Our democracy has been reduced to only a handful of party leaders. After the 2024 elections the stats in the parliament are as follows: BJP with 240 seats, INC with 99, SP with 37, AITC with 29, DMK with 22, TDP with 16, and JD(U) with 12. These top 7 parties control 83.7% of the house. So, with the agreement of 8 people — the 8 party whips of these parties — a decision can be passed with an overwhelming majority. This law makes the decision making process confined to backroom talks with the parliament becoming a space for only namesake disagreement and a giant rubber stamp in terms of decision making.</p>
+
+    <h2>Stepping Out</h2>
+    <p>Independent MPs are not bound by party whips — they can vote according to conscience, constituency interests, and deliberative reasoning. Since they are not bound by the whips, they can inject nuance, complexity and novel perspectives in status quos. Additionally, they make the parliament the discussion ground for politics instead of back channels with the leaders. They also act as guardrails against homogenization and prevent the parliament from becoming an echo chamber. Being free from inner-party ambitions or obligations, independents are less susceptible to quid pro quo politics.</p>
+
+    <p>This is somewhat radical, and a sociological change that will take a long time. However, in the meantime, we can work towards setting up rational rules about the consequences of this law. First, by taking the power of disqualification away from the speaker and giving it to an independent body. Making appeals more accessible and faster, or even by completely anonymising the process of voting in parliament with some independent oversight. Still, all these solutions spawn their own problems — problems that can be addressed with critical thought and debate by legal and polity scholars, because as B. K. Gadhvi said in the parliamentary debates in 1985, "Unfortunately. It is not happening."</p>
+  </div>
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ARTICLE 4: THE MODERN WHITE MAN'S BURDEN
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage4">
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">International Relations</span>
+      <h1>The Modern White Man's Burden</h1>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-body">
+    <blockquote><p>"Take up the White Man's burden—<br>The savage wars of peace—<br>Fill full the mouth of famine<br>And bid the sickness cease; …"</p></blockquote>
+
+    <p>Institutional ignorance is knowledge that an institution cannot, under any circumstances, be aware of to keep functioning normally. They are lies that the institution tells itself to keep it going. In the 12th century, when the British first colonized the land of Ireland, they told themselves many lies. The biggest of which was 'the white man's burden'. They said, as they plundered the Gaelics, that they are bringing civilisation to the lands. They believed, falsely, that the 'tribals' and the 'savage animals' needed to be colonized, ruled over by the English men, or the most English of the coloreds, and taught to be 'civilized'. Of course, they never could be white, they could only aspire to be. So, in that aspiration, they worked, they toiled, and they gave up their lives. Next, they civilized the people in South Africa, India, and the Cayman Islands.</p>
+
+    <p>Now, in a post-colonial world, where we are surrounded by the ideas of neo-colonialism, techno-feudalism, and neo-imperialism, the white man's burden has become yet heavier. Not only are they tasked, rather divinely ordained, to be the saviors and bring about the best of culture, they are also burdened with the task of upholding the ideals of democracy in the whole world. This added the side benefit of maintaining Western hegemony, specifically that of the US. With the big capital of the world currently residing in the US, any power used to uphold the status quo inadvertently — but more often explicitly — cements America's position as the patent holder of democracy. This essay will focus on the part the US played in political changes in Cuba, Afghanistan and Bangladesh that "brought about democracy" and how that "inadvertently" ensured US hegemony.</p>
+
+    <p>In Cuba, the US had a lot more than an implicit relationship with politics. In 1901, with the Platt amendment, there was a change in the constitution of Cuba allowing the US to make direct intervention into Cuba's legal, economic, and political affairs. This was done under the ruse of enduring stability politically. Soon, the US became Cuba's largest trading partner, becoming a major factor to Cuba's economic stability. This reliance on the US further made Cuba dependent on the US and the white man's whims. The US's intervention at every political crisis is a dead giveaway that the changes that they sought did not help the people but were instead aimed at ensuring their world dominance, the dominance of their political system and the hegemony of capitalist culture. It is essential to see USA interventionist policies in the context of public upheaval and evident discontent and disapproval of the American-adjacent establishment.</p>
+
+    <p>In 2001, when Bush started the war on drugs in Afghanistan, it was also an imperialist outlook on a more complex issue that was created, in part, by the US. The Bush cabinet justified the war by emphasizing stable democracy and diminishing the Taliban's funding. This had the obvious but explicitly unintended consequence of increasing the dependence of the Taliban and the Afghan people on the production of opium. Not just that, but the breakdown in pre-existing social structures, catalyzed by the US intervention, led to an increased cartelisation and corruption in the political system. The US then used this to further islamophobic ideologies, push their idea of democracy, and with this ideological backing of the whole world (by force), push Afghanistan deeper into turmoil. They tried to establish a regime that was democratically unpopular, but favored the US in the guise of being better for stability and failed. Later Obama ended the war on drugs, citing and acknowledging the damage, though not doing anything about it. The comfort that is afforded to America to plunder a populist, however informal, government in a state in the ruse of stability and democracy is what has allowed America, and in this case, Obama to skip away from their responsibilities.</p>
+
+    <p>Now, just this year, in 2024, Bangladesh's political systems of power have changed significantly. There has been a marked shift in the top positions of power and the influence. Because of the recent nature of the Bangladesh issue, the information is relatively muddled, but vivid enough to paint a descriptive picture. America has adopted a dual-pronged approach to the ousting of Sheikh Hassina. First, by officially distancing itself from the issue to appear unaffected. It does this to guard itself against accusations of trying to set up a proxy. On the other hand, they use the resources of subtle diplomatic influences and regional expertise like that of Michael Kugelman to get a US favoring and of course, 'stable' government in place.</p>
+
+    <p>Through all these examples, we can see how the US used its hegemonic position and its capital power to ensure its place at the top of the system of power. Though the smallest part of the state is a person, states are not people. States have their own systems of power, their own knowledge and ignorance and their own opinions. They are independent of the general public. This is because the conversation from the state at an international level is framed by the people in power. These people in power are usually privileged white men or funded by privileged white men who carry the modern white man's burden of ensuring stability worldwide. The people in power, or the petty bourgeoisie, are the cause of the political upheaval and manmade calamities that have struck nationals for the sole reason that they tried to listen to their people. Unfortunately, on the way to the conquest, the white man's burden has sunk the ship.</p>
+
+    <blockquote><p>"... And when your goal is nearest<br>The end for others sought,<br>Watch Sloth and heathen Folly<br>Bring all your hopes to nought."</p></blockquote>
+  </div>
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ARTICLE 5: I'M IN YOUR WALLS
+══════════════════════════════════ -->
+<div class="article-page" id="articlePage5">
+  <button class="back-btn" onclick="showBlog()">← Back to all essays</button>
+  <div class="article-hero">
+    <div class="article-hero-content">
+      <span class="feat-tag">Technology &amp; Society</span>
+      <h1>I'm in Your Walls</h1>
+      <div class="article-meta">
+        <img src="1775727951785_image.png" alt="Krish Mehta" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--ochre);flex-shrink:0;" />
+        <div class="author-info">
+          <strong><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(196,154,42,0.5);">Krish Mehta</a></strong>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-body">
+    <blockquote><p>"it is the certainty of being punished and not the horrifying spectacle of public punishment that must discourage crime" — Michel Foucault, Discipline and Punish: The Birth of the Prison</p></blockquote>
+
+    <p>The two things that affect one's behavior at stop lights is; first, the gravity of the punishment, and second, and more important, the probability of getting caught. With the lax structure of traffic policing in India, the probability of getting caught is abysmal. But on the cusp lies a revolution. That is the unblinking and objective CCTV camera. This example provides a perfect application of Foucault's quote. One acts better when one is watched.</p>
+
+    <p>In 2022, social media was rife with the Amber Heard v. Johnny Depp trial. During the ordeal, where Depp was seen as a perfect victim, it was a field day for his marketing team. This is because the people's reaction to the trial was predictable. We can see that predicting human behavior is profitable. However, as found by the podcasters in 'who trolled Amber' it is evident that this hate against Amber and the hero-worship of Depp was manufactured.</p>
+
+    <p>The system of algorithms on the internet cares for interaction, it cares for retention rates, and for the comments, not for the nature of those comments or the result of them. This incentivises polarizing content. Content that is destined to get comments that are hateful. And the major thing this algorithm learns is to predict. Predict what ticks you off, predict the videos you will ignore, and predict which videos will lead you down a spiral of hate. Like established before, predictability is profitable.</p>
+
+    <p>The immediate next question that is evident is how does one predict something with highest accuracy. And the answer is emphatically simple, the best way to predict someone's behavior is to control it. The algorithms are built to maximize profit, and in this late stage capitalistic world, they inflate fringe issues, while drowning out the space for sensible discourse. They stifle voices of reason till lunatic behavior is not only tolerated but expected.</p>
+
+    <p>The combination of the money chasing algorithms with the ideal type content of engagement being 'hateful' lead to a terrible concoction of a toxic and increasingly removed-from-reality social space. A space not for conversation but for arguments. A space that fosters cancel culture, conspiracy theories and dirty politics. The panopticon of social media at the barrel of its consequences shifts the area from a safe space to a breeding ground of faceless trolls and angry boycott mobs.</p>
+
+    <p>The best way to solve this is to turn off your device which is technically possible, but isn't tangible. The most utilitarian solution is to scroll when something is not worth reacting to and react when something is uplifting.</p>
+
+    <p>In this panopticon, we are each other's guard towers, and we need to allow each other to make mistakes that are not seen.</p>
+  </div>
+  <div class="author-bio">
+    <img src="1775727951785_image.png" alt="Krish Mehta" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--green);flex-shrink:0;" />
+    <div>
+      <h5><a href="#" onclick="showBlog(); setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),120); return false;" style="color:var(--brown);text-decoration:none;border-bottom:1px solid var(--ochre);">Krish Mehta</a></h5>
+      <p>Krish Mehta is a law student at Jindal Global Law School pursuing a B.A. LL.B. He has interned at the Supreme Court and Delhi High Court, and serves as Editorial Head of the Jindal Policy Research Lab. He writes on Indian law, policy, and governance.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════ -->
+<div class="article-page" id="contactPage">
+
+  <button class="back-btn" onclick="showBlog()">← Back</button>
+
+  <div style="max-width:720px;margin:3rem auto;padding:0 2rem 4rem;">
+    <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ochre);font-weight:500;margin-bottom:0.75rem;">Get in touch</p>
+    <h1 style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--brown);margin-bottom:1.5rem;line-height:1.1;">Contact</h1>
+    <p style="font-family:'Source Serif 4',serif;font-size:17px;line-height:1.85;color:var(--muted);margin-bottom:2.5rem;">If you have a response to something published here, a pitch, or just want to get in touch, write to me directly.</p>
+
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      <div style="background:#fff;border:0.5px solid var(--border);border-left:3px solid var(--ochre);border-radius:4px;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;">
+        <div style="width:36px;height:36px;background:var(--ochre-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c49a2a" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </div>
+        <div>
+          <p style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px;">Email</p>
+          <a href="mailto:krish.km.mehta@gmail.com" style="font-size:15px;color:var(--green);text-decoration:none;font-weight:500;">krish.km.mehta@gmail.com</a>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:0.5px solid var(--border);border-left:3px solid var(--green);border-radius:4px;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;">
+        <div style="width:36px;height:36px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d4a2a" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <p style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px;">LinkedIn</p>
+          <a href="https://www.linkedin.com/in/krish-m-mehta/" target="_blank" style="font-size:15px;color:var(--green);text-decoration:none;font-weight:500;">krish-m-mehta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <a href="#" class="logo" onclick="goHome(); return false;">the fine <span class="hindi">प्रिंट</span></a>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#" onclick="goHome(); return false;">Essays</a>
+    <a href="#about-section" onclick="showBlog()">About</a>
+    <a href="#" onclick="showContact(); return false;">Contact</a>
+  </div>
+  <p>Independent writing on law, policy &amp; power in India. &copy; 2025</p>
+</footer>
+
+<script>
+  function goHome() {
+    showBlog();
+    document.querySelectorAll('.card, .opinion-item').forEach(el => el.style.display = '');
+    document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+    document.querySelector('.tag').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const allPages = ['blogPage','articlePage','articlePage2','articlePage3','articlePage4','articlePage5','contactPage'];
+
+  function hideAll() {
+    allPages.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = 'none';
+    });
+  }
+
+  function showPage(id) {
+    hideAll();
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showArticle()  { showPage('articlePage'); }
+  function showArticle2() { showPage('articlePage2'); }
+  function showArticle3() { showPage('articlePage3'); }
+  function showArticle4() { showPage('articlePage4'); }
+  function showArticle5() { showPage('articlePage5'); }
+  function showContact()  { showPage('contactPage'); }
+
+  function showBlog() {
+    hideAll();
+    document.getElementById('blogPage').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const tagMap = {
+    'all': null,
+    'constitutional': 'constitutional',
+    'criminal': 'criminal',
+    'policy': 'policy',
+    'labour': 'labour',
+    'data & tech': 'data',
+    'personal law': 'personal law',
+    'environment': 'environment',
+    'opinion': 'opinion'
+  };
+
+  document.querySelectorAll('.tag').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tag').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const selected = t.textContent.trim().toLowerCase();
+      const filterKey = tagMap[selected];
+      document.querySelectorAll('.card, .opinion-item').forEach(el => {
+        if (!filterKey) {
+          el.style.display = '';
+        } else {
+          const elTags = (el.dataset.tags || '').toLowerCase();
+          el.style.display = elTags.includes(filterKey) ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  const articles = [
+    { title: 'Before the Law: Parallel of Socio-Religious Societies', tag: 'Law & Literature', excerpt: "Kafka's parable of the man kept waiting at the door. A portrait of every socio-religious institution that makes us feel heard while ensuring we never truly escape.", action: showArticle },
+    { title: 'FKA Twigs\' Eusexua as Anti-Fascist', tag: 'Music & Culture', excerpt: "Twigs does not write a manifesto. She describes a feeling. Liberation must begin in the body.", action: showArticle2 },
+    { title: 'Whipped in Line', tag: 'Constitutional Law', excerpt: 'The Role of Party Whips and Anti-Defection Laws in India\'s Parliamentary Democracy.', action: showArticle3 },
+    { title: 'The Modern White Man\'s Burden', tag: 'International Relations', excerpt: 'A contemporary look at the systems that maintain western hegemony.', action: showArticle4 },
+    { title: 'I\'m in Your Walls', tag: 'Technology & Society', excerpt: 'An essay on social media algorithms and predicting human behavior.', action: showArticle5 },
+    { title: 'What the Digital Personal Data Protection Act Gets Wrong', tag: 'Policy', excerpt: 'The DPDP Act promises rights but hollows them out through its exceptions and its deference to state interests.', action: showArticle },
+    { title: 'Sedition, Rephrased: The New BNS and Its Silences', tag: 'Opinion', excerpt: 'Renaming sedition does not remove its sting. The Bharatiya Nyaya Sanhita carries its legacy forward in new clothes.', action: showArticle },
+    { title: 'Reservations in the Private Sector: A Constitutional Possibility?', tag: 'Constitutional Law', excerpt: 'The debate rarely engages seriously with what Article 15(5) actually permits and forecloses.', action: showArticle },
+    { title: 'Environmental Clearances and the Infrastructure Imperative', tag: 'Labour Law', excerpt: 'When growth and ecology collide in project approval corridors.', action: showArticle },
+    { title: 'Uniformity vs Diversity: The Uniform Civil Code Debate Unpacked', tag: 'Personal Law', excerpt: 'What the UCC debate actually involves, legally and politically.', action: showArticle },
+    { title: 'Who Governs the Governors? Accountability in Regulatory Bodies', tag: 'Administrative Law', excerpt: "Questions of oversight and accountability in India's regulatory architecture.", action: showArticle },
+    { title: 'Custodial Deaths and the Failure of Institutional Oversight', tag: 'Criminal Law', excerpt: 'The systemic failures that allow custodial violence to persist.', action: showArticle }
+  ];
+
+  const searchInput = document.getElementById('siteSearch');
+  const searchResults = document.getElementById('searchResults');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { searchResults.style.display = 'none'; return; }
+    const matches = articles.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.tag.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q)
+    );
+    if (!matches.length) {
+      searchResults.innerHTML = '<div style="padding:1rem 1.25rem;font-size:13px;color:#7a6450;">No results found.</div>';
+    } else {
+      searchResults.innerHTML = matches.map((a, i) => `
+        <div onclick="searchGo(${i})" style="padding:0.85rem 1.25rem;border-bottom:0.5px solid rgba(59,34,18,0.1);cursor:pointer;background:#fff;" onmouseover="this.style.background='#f5f0e8'" onmouseout="this.style.background='#fff'">
+          <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#c49a2a;font-weight:500;margin-bottom:3px;">${a.tag}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#3b2212;line-height:1.3;">${a.title}</div>
+        </div>
+      `).join('');
+      window._searchMatches = matches;
+    }
+    searchResults.style.display = 'block';
+  });
+
+  window.searchGo = (i) => {
+    window._searchMatches[i].action();
+    searchResults.style.display = 'none';
+    searchInput.value = '';
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      searchResults.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { searchResults.style.display = 'none'; searchInput.value = ''; }
+  });
+
+  async function handleSubscribe() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').style.borderColor = '#b84c2b';
+      return;
+    }
+    const btn = document.querySelector('.newsletter button');
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://api.buttondown.email/v1/subscribers', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token 3255286e-0c85-4ff0-ba86-6e6d0a8b5cff',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email_address: email })
+      });
+      if (res.ok || res.status === 201) {
+        document.getElementById('emailInput').style.display = 'none';
+        btn.style.display = 'none';
+        document.getElementById('subSuccess').style.display = 'block';
+      } else if (res.status === 400) {
+        document.getElementById('subSuccess').textContent = 'You are already subscribed!';
+        document.getElementById('subSuccess').style.display = 'block';
+        document.getElementById('emailInput').style.display = 'none';
+        btn.style.display = 'none';
+      } else {
+        btn.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      btn.textContent = 'Something went wrong. Try again.';
+      btn.disabled = false;
+    }
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+
+</script>
+
+</body>
+</html>
